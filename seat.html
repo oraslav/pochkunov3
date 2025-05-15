@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выбор зоны - Праздник в каждый дом</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Baloo+2:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">
+                    <span class="logo-icon">🎪</span>
+                    <span>Праздник в каждый дом</span>
+                </div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="index.html#promo">Акции</a></li>
+                        <li><a href="index.html#search">Поиск</a></li>
+                        <li><a href="booking.html">Управление бронированием</a></li>
+                    </ul>
+                </nav>
+                <div class="burger-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="seat-selection">
+        <div class="container">
+            <h1 class="section-title">Выберите зону</h1>
+            <div class="location-info">
+                <h2>Детский центр "Сказка"</h2>
+                <p class="address">г. Москва, ул. Праздничная, 15</p>
+                <p class="date">15 декабря 2023</p>
+                <p class="guests">10 детей и 2 взрослых</p>
+            </div>
+
+            <div class="seat-map-container">
+                <div class="seat-map">
+                    <div class="map-scheme">
+                        <div class="venue">
+                            <div class="stage">Сцена</div>
+                            <div class="seats-area">
+                                <div class="seat available" data-seat="A1" data-price="5000">
+                                    <span>A1</span>
+                                    <div class="seat-tooltip">Зона A1 - 5000 руб</div>
+                                </div>
+                                <div class="seat available" data-seat="A2" data-price="6000">
+                                    <span>A2</span>
+                                    <div class="seat-tooltip">Зона A2 - 6000 руб</div>
+                                </div>
+                                <div class="seat booked" data-seat="A3">
+                                    <span>A3</span>
+                                    <div class="seat-tooltip">Зона A3 - занята</div>
+                                </div>
+                                <div class="seat available" data-seat="B1" data-price="7000">
+                                    <span>B1</span>
+                                    <div class="seat-tooltip">Зона B1 - 7000 руб</div>
+                                </div>
+                                <div class="seat available" data-seat="B2" data-price="8000">
+                                    <span>B2</span>
+                                    <div class="seat-tooltip">Зона B2 - 8000 руб</div>
+                                </div>
+                                <div class="seat available" data-seat="B3" data-price="5500">
+                                    <span>B3</span>
+                                    <div class="seat-tooltip">Зона B3 - 5500 руб</div>
+                                </div>
+                            </div>
+                            <div class="entrance">Вход</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="seat-info">
+                    <h3>Выбранная зона: <span id="selected-seat">не выбрана</span></h3>
+                    <p>Стоимость: <span id="seat-price">0</span> руб</p>
+                    <p>Вместимость: до 15 человек</p>
+                    <div class="seat-description">
+                        <p>Удобная зона с детскими столиками, мягкими пуфами и доступом к игровой площадке.</p>
+                    </div>
+                    <a href="booking.html" class="btn" id="book-btn" disabled>Перейти к бронированию</a>
+                </div>
+            </div>
+
+            <div class="back-link">
+                <a href="search.html" class="btn btn-outline">Вернуться к выбору локаций</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-contacts">
+                    <div class="logo">
+                        <span class="logo-icon">🎪</span>
+                        <span>Праздник в каждый дом</span>
+                    </div>
+                    <div class="phone">8 (800) 111-20-20</div>
+                </div>
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="http://xxxxxx-m1.wsr.ru/return">Возврат</a></li>
+                        <li><a href="http://xxxxxx-m1.wsr.ru/feedback">Обратная связь</a></li>
+                        <li><a href="index.html#promo">Акции</a></li>
+                        <li><a href="index.html#search">Поиск</a></li>
+                        <li><a href="booking.html">Управление бронированием</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">© 2023 Праздник в каждый дом. Все права защищены.</div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const seats = document.querySelectorAll('.seat.available');
+            const selectedSeat = document.getElementById('selected-seat');
+            const seatPrice = document.getElementById('seat-price');
+            const bookBtn = document.getElementById('book-btn');
+
+            seats.forEach(seat => {
+                seat.addEventListener('click', function() {
+                    // Remove active class from all seats
+                    seats.forEach(s => s.classList.remove('active'));
+                    
+                    // Add active class to clicked seat
+                    this.classList.add('active');
+                    
+                    // Update selected seat info
+                    selectedSeat.textContent = this.dataset.seat;
+                    seatPrice.textContent = this.dataset.price;
+                    
+                    // Enable book button
+                    bookBtn.disabled = false;
+                    
+                    // Store selected seat in localStorage
+                    localStorage.setItem('selectedSeat', JSON.stringify({
+                        id: this.dataset.seat,
+                        price: this.dataset.price
+                    }));
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бронирование - Праздник в каждый дом</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Baloo+2:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">
+                    <span class="logo-icon">🎪</span>
+                    <span>Праздник в каждый дом</span>
+                </div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="index.html#promo">Акции</a></li>
+                        <li><a href="index.html#search">Поиск</a></li>
+                        <li><a href="booking.html">Управление бронированием</a></li>
+                    </ul>
+                </nav>
+                <div class="burger-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="booking">
+        <div class="container">
+            <h1 class="section-title">Оформление бронирования</h1>
+            
+            <div class="booking-container">
+                <div class="order-summary">
+                    <h2>Детали заказа</h2>
+                    <div class="summary-item">
+                        <span>Локация:</span>
+                        <span>Детский центр "Сказка"</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Адрес:</span>
+                        <span>г. Москва, ул. Праздничная, 15</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Дата:</span>
+                        <span>15 декабря 2023</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Количество гостей:</span>
+                        <span>10 детей и 2 взрослых</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Выбранная зона:</span>
+                        <span id="summary-seat">A1</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Стоимость зоны:</span>
+                        <span id="summary-price">5000 руб</span>
+                    </div>
+                </div>
+
+                <form class="booking-form">
+                    <h2>Дополнительные услуги</h2>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="food" name="food" value="3000">
+                        <label for="food">Организация питания (+3000 руб)</label>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="animators" name="animators" value="5000">
+                        <label for="animators">Услуги аниматоров (+5000 руб)</label>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="host" name="host" value="4000">
+                        <label for="host">Услуги ведущего (+4000 руб)</label>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="taxi" name="taxi" value="2000">
+                        <label for="taxi">Услуги детского такси (+2000 руб)</label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="comment">Дополнительные пожелания</label>
+                        <textarea id="comment" name="comment" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email для подтверждения</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="total-price">
+                        <span>Итого к оплате:</span>
+                        <span id="total">5000 руб</span>
+                    </div>
+                    
+                    <button type="submit" class="btn">Подтвердить бронирование</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-contacts">
+                    <div class="logo">
+                        <span class="logo-icon">🎪</span>
+                        <span>Праздник в каждый дом</span>
+                    </div>
+                    <div class="phone">8 (800) 111-20-20</div>
+                </div>
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="http://xxxxxx-m1.wsr.ru/return">Возврат</a></li>
+                        <li><a href="http://xxxxxx-m1.wsr.ru/feedback">Обратная связь</a></li>
+                        <li><a href="index.html#promo">Акции</a></li>
+                        <li><a href="index.html#search">Поиск</a></li>
+                        <li><a href="booking.html">Управление бронированием</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">© 2023 Праздник в каждый дом. Все права защищены.</div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get selected seat from localStorage
+            const selectedSeat = JSON.parse(localStorage.getItem('selectedSeat'));
+            
+            if (selectedSeat) {
+                document.getElementById('summary-seat').textContent = selectedSeat.id;
+                document.getElementById('summary-price').textContent = selectedSeat.price + ' руб';
+                document.getElementById('total').textContent = selectedSeat.price + ' руб';
+            }
+            
+            // Calculate total price
+            const checkboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]');
+            const totalElement = document.getElementById('total');
+            const basePrice = selectedSeat ? parseInt(selectedSeat.price) : 0;
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    let total = basePrice;
+                    
+                    checkboxes.forEach(cb => {
+                        if (cb.checked) {
+                            total += parseInt(cb.value);
+                        }
+                    });
+                    
+                    totalElement.textContent = total + ' руб';
+                });
+            });
+            
+            // Form submission
+            const form = document.querySelector('.booking-form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Here you would normally send the data to the server
+                alert('Бронирование успешно оформлено! На ваш email отправлено подтверждение.');
+                localStorage.removeItem('selectedSeat');
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html>
